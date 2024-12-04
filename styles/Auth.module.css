@@ -1,0 +1,58 @@
+/* styles/Auth.module.css */
+.authContainer {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 2.5rem;
+    background: rgba(31, 31, 31, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    text-align: center;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.authForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.authInput {
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    background-color: rgba(42, 42, 42, 0.8);
+    color: #fff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.authInput:focus {
+    outline: none;
+    background-color: rgba(42, 42, 42, 1);
+    box-shadow: 0 0 0 2px rgba(233, 69, 96, 0.3);
+}
+
+.authButton {
+    padding: 1rem;
+    background-color: #e94560;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.authButton:hover {
+    background-color: #d13045;
+    transform: translateY(-1px);
+}
+
+.errorMsg {
+    color: #e94560;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}

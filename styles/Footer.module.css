@@ -1,0 +1,14 @@
+/* styles/Footer.module.css */
+.footer {
+    background: rgba(31, 31, 31, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 1.5rem;
+    text-align: center;
+    color: #ccc;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
