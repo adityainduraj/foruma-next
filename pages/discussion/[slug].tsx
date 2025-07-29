@@ -1,7 +1,5 @@
 // pages/discussion/[slug].tsx
 
-import { CommentData } from "../../types/supabase";
-import { useContext, useEffect } from "react";
 import styles from "../../styles/Discussion.module.css";
 import CommentSection from "../../components/CommentSection";
 import type { NextPage, GetServerSideProps } from "next";
