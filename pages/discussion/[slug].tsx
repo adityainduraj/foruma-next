@@ -48,11 +48,23 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   let ogImage = "";
 
   try {
+    // Add timeout and better error handling
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+
     const response = await fetch(decodedUrl, {
       headers: {
         "User-Agent": "Mozilla/5.0 (compatible; ForumaBot/1.0)",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
       },
+      signal: controller.signal,
     });
+
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
 
     const html = await response.text();
     const $ = cheerio.load(html);
@@ -71,20 +83,27 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     // Handle relative image URLs
     if (ogImage && !ogImage.startsWith("http")) {
-      const url = new URL(decodedUrl);
-      ogImage = `${url.protocol}//${url.host}${ogImage}`;
+      try {
+        const url = new URL(decodedUrl);
+        ogImage = `${url.protocol}//${url.host}${ogImage}`;
+      } catch (urlError) {
+        console.error("Error constructing absolute image URL:", urlError);
+        ogImage = ""; // Reset on error
+      }
     }
   } catch (error) {
-    console.error("Error fetching Open Graph data:", error);
-    // Fallback to the URL if fetching fails
+    console.error("Error fetching Open Graph data for", decodedUrl, ":", error);
+    // Set fallback values
+    ogTitle = decodedUrl;
+    ogDescription = "Discussion about this link";
   }
 
   return {
     props: {
       link: decodedUrl,
-      ogTitle,
-      ogDescription,
-      ogImage,
+      ogTitle: ogTitle || decodedUrl,
+      ogDescription: ogDescription || "Join the discussion about this link",
+      ogImage: ogImage || "",
     },
   };
 };

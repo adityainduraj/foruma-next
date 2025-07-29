@@ -44,37 +44,56 @@ const CommentSection = ({ link }: CommentSectionProps) => {
   const fetchComments = async () => {
     setLoading(true);
     try {
-      const { data, error } = await supabase
+      console.log('Fetching comments for link:', link);
+      
+      // Get comments first
+      const { data: commentsData, error: commentsError } = await supabase
         .from("comments")
-        .select(
-          `
-          id,
-          content,
-          created_at,
-          author_id,
-          votes,
-          profiles (
-            username
-          )
-        `,
-        )
+        .select("*")
         .eq("link", link)
         .order("created_at", { ascending: false });
 
-      if (error) throw error;
+      if (commentsError) {
+        console.error('Comments error details:', commentsError);
+        throw new Error(`Comments query failed: ${commentsError.message}`);
+      }
 
-      // Ensure the data matches our expected type
-      const typedComments: CommentData[] = data.map((comment) => ({
-        ...comment,
-        profiles: {
-          username: comment.profiles?.username || null,
-        },
-      }));
+      if (!commentsData || commentsData.length === 0) {
+        console.log('No comments found');
+        setComments([]);
+        return;
+      }
 
+      // Get profiles for these comments separately
+      const authorIds = [...new Set(commentsData.map(c => c.author_id))];
+      const { data: profilesData, error: profilesError } = await supabase
+        .from("profiles")
+        .select("id, username")
+        .in("id", authorIds);
+
+      if (profilesError) {
+        console.warn('Profiles query failed:', profilesError);
+      }
+
+      // Combine manually
+      const typedComments: CommentData[] = commentsData.map((comment) => {
+        const profile = profilesData?.find(p => p.id === comment.author_id);
+        return {
+          ...comment,
+          profiles: {
+            username: profile?.username || "Anonymous",
+          },
+        };
+      });
+
+      console.log('Setting comments:', typedComments);
       setComments(typedComments);
+
     } catch (error) {
-      console.error("Error fetching comments:", error);
-      toast.error("Error loading comments");
+      console.error("Detailed error fetching comments:", error);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      toast.error(`Error loading comments: ${errorMessage}`);
+      setComments([]);
     } finally {
       setLoading(false);
     }
