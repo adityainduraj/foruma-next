@@ -20,7 +20,7 @@ const Navbar = () => {
     <nav className={styles.navbar}>
       <div className={styles.container}>
         <Link href="/" className={styles.logo}>
-          Foruma
+          Overweb
         </Link>
         <div className={styles.navLinks}>
           {user ? (

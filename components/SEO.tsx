@@ -8,7 +8,7 @@ interface SEOProps {
 }
 
 const SEO = ({
-  title = "Foruma - Discuss Any Web Content",
+  title = "Overweb - Discuss Any Web Content",
   description = "Join conversations about any article or webpage. Connect with others through meaningful discussions across the web.",
   image = "/og-image.jpg",
 }: SEOProps) => {

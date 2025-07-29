@@ -18,7 +18,7 @@ const HomePage = () => {
   return (
     <div className={styles.home}>
       <section className={styles.hero}>
-        <h1 className={styles.title}>Foruma</h1>
+        <h1 className={styles.title}>Overweb</h1>
         <p className={styles.subtitle}>Let's talk about it</p>
         <form className={styles.searchForm} onSubmit={handleFormSubmit}>
           <input
@@ -38,7 +38,7 @@ const HomePage = () => {
       <section className={styles.landing}>
         <h2 className={styles.sectionTitle}>Join Conversations Anywhere</h2>
         <p className={styles.sectionDescription}>
-          Foruma allows you to discuss any article or webpage with others. No
+          Overweb allows you to discuss any article or webpage with others. No
           more scattered threads or account sign-ups.
         </p>
         <div className={styles.cards}>
