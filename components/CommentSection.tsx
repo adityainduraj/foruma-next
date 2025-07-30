@@ -1,7 +1,7 @@
 "use client";
 
 // components/CommentSection.tsx
-import { useState, useEffect, useContext, FormEvent } from "react";
+import { useState, useEffect, useContext, FormEvent, useCallback } from "react";
 import { supabase } from "../utils/supabaseClient";
 import { AuthContext } from "../contexts/AuthContext";
 import { Vote, CommentSectionProps, CommentData } from "../types";
@@ -18,17 +18,7 @@ const CommentSection = ({ link }: CommentSectionProps) => {
   const [errorMsg, setErrorMsg] = useState<string>("");
   const [userVotes, setUserVotes] = useState<Record<number, Vote>>({});
 
-  useEffect(() => {
-    fetchComments();
-  }, [link]);
-
-  useEffect(() => {
-    if (user) {
-      fetchUserVotes();
-    }
-  }, [user, comments]);
-
-  const fetchComments = async () => {
+  const fetchComments = useCallback(async () => {
     setLoading(true);
     try {
       console.log("Fetching comments for link:", link);
@@ -84,9 +74,9 @@ const CommentSection = ({ link }: CommentSectionProps) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [link]);
 
-  const fetchUserVotes = async () => {
+  const fetchUserVotes = useCallback(async () => {
     if (!user || comments.length === 0) return;
 
     try {
@@ -111,7 +101,17 @@ const CommentSection = ({ link }: CommentSectionProps) => {
     } catch (error) {
       console.error("Error fetching user votes:", error);
     }
-  };
+  }, [user, comments]);
+
+  useEffect(() => {
+    fetchComments();
+  }, [fetchComments]);
+
+  useEffect(() => {
+    if (user) {
+      fetchUserVotes();
+    }
+  }, [user, fetchUserVotes]);
 
   const handleCommentSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

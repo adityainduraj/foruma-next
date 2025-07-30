@@ -19,7 +19,7 @@ const HomePage = () => {
     <div className={styles.home}>
       <section className={styles.hero}>
         <h1 className={styles.title}>Overweb</h1>
-        <p className={styles.subtitle}>Let's talk about it</p>
+        <p className={styles.subtitle}>Let&apos;s talk about it</p>
         <form className={styles.searchForm} onSubmit={handleFormSubmit}>
           <input
             type="url"
@@ -51,7 +51,7 @@ const HomePage = () => {
           </div>
           <div className={styles.card}>
             <h3>Simple &amp; Accessible</h3>
-            <p>Just paste a link and start chatting. It's that easy.</p>
+            <p>Just paste a link and start chatting. It&apos;s that easy.</p>
           </div>
           <div className={styles.card}>
             <h3>Unified Platform</h3>

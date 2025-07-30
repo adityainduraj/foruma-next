@@ -42,10 +42,15 @@ const SignupPage = () => {
         );
         router.push("/");
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Signup error:", error);
-      setErrorMsg(error.message);
-      toast.error(error.message);
+      if (error instanceof Error) {
+        setErrorMsg(error.message);
+        toast.error(error.message);
+      } else {
+        setErrorMsg("An unknown error occurred.");
+        toast.error("An unknown error occurred.");
+      }
     } finally {
       setLoading(false);
     }

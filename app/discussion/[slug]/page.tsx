@@ -6,6 +6,7 @@ import styles from "../../../styles/Discussion.module.css";
 import CommentSection from "../../../components/CommentSection";
 import SEO from "../../../components/SEO";
 import { OGData } from "../../../types";
+import Image from "next/image";
 
 const DiscussionPage = () => {
   const params = useParams();
@@ -82,7 +83,13 @@ const DiscussionPage = () => {
             <h2>{link}</h2>
             <p>{ogData.description || ogData.title}</p>
             {ogData.image && (
-              <img src={ogData.image} alt="Link Preview Image" />
+              <Image
+                src={ogData.image}
+                alt="Link Preview Image"
+                width={500}
+                height={300}
+                style={{ objectFit: "cover" }}
+              />
             )}
           </a>
         </div>
