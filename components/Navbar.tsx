@@ -1,10 +1,12 @@
+"use client";
+
 // components/Navbar.tsx
 
 import Link from "next/link";
 import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { supabase } from "../utils/supabaseClient";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import styles from "../styles/Navbar.module.css";
 
 const Navbar = () => {

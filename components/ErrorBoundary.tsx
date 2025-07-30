@@ -1,20 +1,13 @@
 // components/ErrorBoundary.tsx
-import React, { Component, ErrorInfo, ReactNode } from "react";
+import React, { Component, ErrorInfo } from "react";
+import { ErrorBoundaryProps, ErrorBoundaryState } from "../types";
 
-interface Props {
-  children: ReactNode;
-}
-
-interface State {
-  hasError: boolean;
-}
-
-class ErrorBoundary extends Component<Props, State> {
-  public state: State = {
+class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  public state: ErrorBoundaryState = {
     hasError: false,
   };
 
-  public static getDerivedStateFromError(_: Error): State {
+  public static getDerivedStateFromError(_: Error): ErrorBoundaryState {
     return { hasError: true };
   }
 
@@ -28,7 +21,7 @@ class ErrorBoundary extends Component<Props, State> {
         <div className="error-boundary">
           <h2>Oops, there was an error!</h2>
           <button onClick={() => this.setState({ hasError: false })}>
-            Try again
+            Try again?
           </button>
         </div>
       );

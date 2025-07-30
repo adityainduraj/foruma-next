@@ -1,7 +1,7 @@
-// pages/index.tsx
+"use client";
 
 import { useState, FormEvent } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import styles from "../styles/Home.module.css";
 
 const HomePage = () => {
