@@ -14,42 +14,44 @@
     backdrop-filter: blur(10px);
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    text-align: center;
 }
 
 .linkPreview a {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-    color: #e94560;
-    word-break: break-all;
-    transition: color 0.3s ease;
+    align-items: flex-start;
+    gap: 1rem;
+    color: inherit;
     text-decoration: none;
+    transition: opacity 0.3s ease;
 }
 
 .linkPreview a:hover {
-    color: #d13045;
+    opacity: 0.8;
 }
 
-.linkPreview h2 {
-    margin: 0;
-    font-size: 1.5rem;
-    color: #fff;
-}
-
-.linkPreview p {
-    margin: 0.5rem 0;
-    color: #ccc;
-    max-width: 600px;
-}
-
-.linkPreview img {
-    margin-top: 1rem;
-    max-width: 100%;
-    height: auto;
+.thumbnail {
     border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.content {
+    flex: 1;
+    min-width: 0;
+}
+
+.content h2 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.25rem;
+    color: #fff;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.content p {
+    margin: 0;
+    color: #ccc;
+    line-height: 1.4;
+    font-size: 0.95rem;
 }
 
 .commentSection {

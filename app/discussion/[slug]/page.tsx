@@ -80,20 +80,22 @@ const DiscussionPage = () => {
       <div className={styles.discussion}>
         <div className={styles.linkPreview}>
           <a href={link} target="_blank" rel="noopener noreferrer">
-            <h2>{link}</h2>
-            <p>{ogData.description || ogData.title}</p>
             {ogData.image && (
               <Image
                 src={ogData.image}
                 alt="Link Preview Image"
-                width={500}
-                height={300}
+                width={120}
+                height={120}
                 style={{ objectFit: "cover" }}
+                className={styles.thumbnail}
               />
             )}
+            <div className={styles.content}>
+              <h2>{ogData.title}</h2>
+              <p>{ogData.description.split(' ').slice(0, 30).join(' ')}{ogData.description.split(' ').length > 30 ? '...' : ''}</p>
+            </div>
           </a>
-        </div>
-        <CommentSection link={link} />
+        </div>        <CommentSection link={link} />
       </div>
     </>
   );
