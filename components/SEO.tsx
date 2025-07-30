@@ -1,11 +1,6 @@
 // components/SEO.tsx
 import Head from "next/head";
-
-interface SEOProps {
-  title?: string;
-  description?: string;
-  image?: string;
-}
+import { SEOProps } from "../types";
 
 const SEO = ({
   title = "Overweb - Discuss Any Web Content",

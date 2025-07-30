@@ -1,12 +1,8 @@
 // components/Layout.tsx
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import { ReactNode } from "react";
+import { LayoutProps } from "../types";
 import styles from "../styles/Layout.module.css";
-
-interface LayoutProps {
-  children: ReactNode;
-}
 
 const Layout = ({ children }: LayoutProps) => {
   return (

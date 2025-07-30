@@ -1,27 +1,14 @@
+"use client";
+
 // components/CommentSection.tsx
 import { useState, useEffect, useContext, FormEvent } from "react";
 import { supabase } from "../utils/supabaseClient";
 import { AuthContext } from "../contexts/AuthContext";
-import { Vote } from "../types/supabase";
+import { Vote, CommentSectionProps, CommentData } from "../types";
 import styles from "../styles/Discussion.module.css";
 import LoadingSpinner from "./LoadingSpinner";
 import VoteButtons from "./VoteButtons";
 import toast from "react-hot-toast";
-
-interface CommentSectionProps {
-  link: string;
-}
-
-interface CommentData {
-  id: number;
-  content: string;
-  created_at: string;
-  author_id: string;
-  votes: number;
-  profiles: {
-    username: string | null;
-  };
-}
 
 const CommentSection = ({ link }: CommentSectionProps) => {
   const { user } = useContext(AuthContext);
@@ -44,8 +31,8 @@ const CommentSection = ({ link }: CommentSectionProps) => {
   const fetchComments = async () => {
     setLoading(true);
     try {
-      console.log('Fetching comments for link:', link);
-      
+      console.log("Fetching comments for link:", link);
+
       // Get comments first
       const { data: commentsData, error: commentsError } = await supabase
         .from("comments")
@@ -54,30 +41,30 @@ const CommentSection = ({ link }: CommentSectionProps) => {
         .order("created_at", { ascending: false });
 
       if (commentsError) {
-        console.error('Comments error details:', commentsError);
+        console.error("Comments error details:", commentsError);
         throw new Error(`Comments query failed: ${commentsError.message}`);
       }
 
       if (!commentsData || commentsData.length === 0) {
-        console.log('No comments found');
+        console.log("No comments found");
         setComments([]);
         return;
       }
 
       // Get profiles for these comments separately
-      const authorIds = [...new Set(commentsData.map(c => c.author_id))];
+      const authorIds = [...new Set(commentsData.map((c) => c.author_id))];
       const { data: profilesData, error: profilesError } = await supabase
         .from("profiles")
         .select("id, username")
         .in("id", authorIds);
 
       if (profilesError) {
-        console.warn('Profiles query failed:', profilesError);
+        console.warn("Profiles query failed:", profilesError);
       }
 
       // Combine manually
       const typedComments: CommentData[] = commentsData.map((comment) => {
-        const profile = profilesData?.find(p => p.id === comment.author_id);
+        const profile = profilesData?.find((p) => p.id === comment.author_id);
         return {
           ...comment,
           profiles: {
@@ -86,12 +73,12 @@ const CommentSection = ({ link }: CommentSectionProps) => {
         };
       });
 
-      console.log('Setting comments:', typedComments);
+      console.log("Setting comments:", typedComments);
       setComments(typedComments);
-
     } catch (error) {
       console.error("Detailed error fetching comments:", error);
-      const errorMessage = error instanceof Error ? error.message : String(error);
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
       toast.error(`Error loading comments: ${errorMessage}`);
       setComments([]);
     } finally {
@@ -109,7 +96,7 @@ const CommentSection = ({ link }: CommentSectionProps) => {
         .eq("user_id", user.id)
         .in(
           "comment_id",
-          comments.map((c) => c.id),
+          comments.map((c) => c.id)
         );
 
       if (error) throw error;
@@ -200,8 +187,8 @@ const CommentSection = ({ link }: CommentSectionProps) => {
                 onVoteChange={(newCount) => {
                   setComments(
                     comments.map((c) =>
-                      c.id === cmt.id ? { ...c, votes: newCount } : c,
-                    ),
+                      c.id === cmt.id ? { ...c, votes: newCount } : c
+                    )
                   );
                 }}
               />
