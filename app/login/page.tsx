@@ -37,9 +37,14 @@ const LoginPage = () => {
 
       toast.success("Successfully logged in!");
       router.push("/");
-    } catch (error: any) {
-      setErrorMsg(error.message);
-      toast.error(error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setErrorMsg(error.message);
+        toast.error(error.message);
+      } else {
+        setErrorMsg("An unknown error occurred.");
+        toast.error("An unknown error occurred.");
+      }
     } finally {
       setLoading(false);
     }
