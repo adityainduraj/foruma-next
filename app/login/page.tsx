@@ -5,7 +5,7 @@ import { useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import styles from "../../styles/Auth.module.css";
 import { AuthContext } from "../../contexts/AuthContext";
-import { login } from "../../utils/actions";
+import { login, signInWithGoogle } from "../../utils/actions";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -42,6 +42,19 @@ const LoginPage = () => {
         />
         <button type="submit" className={styles.authButton}>
           Login
+        </button>
+      </form>
+
+      <div className={styles.divider}>
+        <span>or</span>
+      </div>
+
+      <form action={signInWithGoogle}>
+        <button
+          type="submit"
+          className={`${styles.authButton} ${styles.googleButton}`}
+        >
+          Continue with Google
         </button>
       </form>
     </div>

@@ -1,10 +1,11 @@
 // app/signup/page.tsx
+"use client";
 
 import { useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import styles from "../../styles/Auth.module.css";
 import { AuthContext } from "../../contexts/AuthContext";
-import { signup } from "../../utils/actions";
+import { signup, signInWithGoogle } from "../../utils/actions";
 
 const SignupPage = () => {
   const router = useRouter();
@@ -41,6 +42,19 @@ const SignupPage = () => {
         />
         <button type="submit" className={styles.authButton}>
           Sign Up
+        </button>
+      </form>
+
+      <div className={styles.divider}>
+        <span>or</span>
+      </div>
+
+      <form action={signInWithGoogle}>
+        <button
+          type="submit"
+          className={`${styles.authButton} ${styles.googleButton}`}
+        >
+          Continue with Google
         </button>
       </form>
     </div>
