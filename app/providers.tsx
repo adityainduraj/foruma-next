@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { supabase } from "../utils/supabaseClient";
+import { createClient } from "../utils/supabase/client";
 import { AuthContext } from "../contexts/AuthContext";
 import Layout from "../components/Layout";
 import Toast from "../components/Toast";
@@ -16,6 +16,8 @@ export default function ClientProviders({
 
   useEffect(() => {
     const initializeAuth = async () => {
+      const supabase = createClient();
+
       const {
         data: { session },
       } = await supabase.auth.getSession();

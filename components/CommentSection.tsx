@@ -2,7 +2,7 @@
 
 // components/CommentSection.tsx
 import { useState, useEffect, useContext, FormEvent, useCallback } from "react";
-import { supabase } from "../utils/supabaseClient";
+import { createClient } from "../utils/supabase/client";
 import { AuthContext } from "../contexts/AuthContext";
 import { Vote, CommentSectionProps, CommentData } from "../types";
 import styles from "../styles/Discussion.module.css";
@@ -20,6 +20,7 @@ const CommentSection = ({ link }: CommentSectionProps) => {
 
   const fetchComments = useCallback(async () => {
     setLoading(true);
+    const supabase = createClient();
     try {
       console.log("Fetching comments for link:", link);
 
@@ -79,6 +80,7 @@ const CommentSection = ({ link }: CommentSectionProps) => {
   const fetchUserVotes = useCallback(async () => {
     if (!user || comments.length === 0) return;
 
+    const supabase = createClient();
     try {
       const { data: votes, error } = await supabase
         .from("votes")
@@ -127,6 +129,7 @@ const CommentSection = ({ link }: CommentSectionProps) => {
       return;
     }
 
+    const supabase = createClient();
     try {
       const { error } = await supabase.from("comments").insert({
         content: comment.trim(),

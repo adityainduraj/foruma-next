@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { supabase } from "../utils/supabaseClient";
+import { createClient } from "../utils/supabase/client";
 
 const SupabaseDebug = () => {
   const [results, setResults] = useState<Record<string, unknown> | null>(null);
@@ -10,6 +10,7 @@ const SupabaseDebug = () => {
   const testConnection = async () => {
     setLoading(true);
     const testResults: Record<string, unknown> = {};
+    const supabase = createClient();
 
     try {
       // Test 1: Basic connection

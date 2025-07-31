@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { supabase } from "../utils/supabaseClient";
+import { createClient } from "../utils/supabase/client";
 import { VoteButtonsProps } from "../types";
 import styles from "../styles/VoteButtons.module.css";
 import toast from "react-hot-toast";
@@ -22,6 +22,7 @@ const VoteButtons = ({
       return;
     }
 
+    const supabase = createClient();
     setLoading(true);
     try {
       if (userVote?.value === value) {
