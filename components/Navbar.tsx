@@ -5,7 +5,7 @@
 import Link from "next/link";
 import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
-import { supabase } from "../utils/supabaseClient";
+import { createClient } from "../utils/supabase/client";
 import { useRouter } from "next/navigation";
 import styles from "../styles/Navbar.module.css";
 
@@ -14,6 +14,7 @@ const Navbar = () => {
   const router = useRouter();
 
   const handleLogout = async () => {
+    const supabase = createClient();
     await supabase.auth.signOut();
     router.push("/");
   };

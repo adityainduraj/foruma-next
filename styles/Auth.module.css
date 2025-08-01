@@ -1,58 +1,92 @@
 /* styles/Auth.module.css */
 .authContainer {
-    max-width: 400px;
-    margin: 100px auto;
-    padding: 2.5rem;
-    background: rgba(31, 31, 31, 0.8);
-    backdrop-filter: blur(10px);
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #fff;
-    text-align: center;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 2.5rem;
+  background: rgba(31, 31, 31, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 .authForm {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
 }
 
 .authInput {
-    padding: 1rem;
-    border: none;
-    border-radius: 8px;
-    background-color: rgba(42, 42, 42, 0.8);
-    color: #fff;
-    font-size: 1rem;
-    transition: all 0.3s ease;
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: rgba(42, 42, 42, 0.8);
+  color: #fff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
 }
 
 .authInput:focus {
-    outline: none;
-    background-color: rgba(42, 42, 42, 1);
-    box-shadow: 0 0 0 2px rgba(233, 69, 96, 0.3);
+  outline: none;
+  background-color: rgba(42, 42, 42, 1);
+  box-shadow: 0 0 0 2px rgba(233, 69, 96, 0.3);
 }
 
 .authButton {
-    padding: 1rem;
-    background-color: #e94560;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    color: #fff;
-    font-weight: 600;
-    font-size: 1rem;
-    transition: all 0.3s ease;
+  padding: 1rem;
+  background-color: #e94560;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
 }
 
 .authButton:hover {
-    background-color: #d13045;
-    transform: translateY(-1px);
+  background-color: #d13045;
+  transform: translateY(-1px);
 }
 
 .errorMsg {
-    color: #e94560;
-    margin-bottom: 1rem;
-    font-size: 0.9rem;
+  color: #e94560;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.divider {
+  margin: 1.5rem 0;
+  position: relative;
+  text-align: center;
+}
+
+.divider::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.divider span {
+  background: rgba(31, 31, 31, 0.8);
+  padding: 0 1rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  position: relative;
+  z-index: 1;
+}
+
+.googleButton {
+  background-color: #4285f4;
+  color: white;
+}
+
+.googleButton:hover {
+  background-color: #357ae8;
 }
