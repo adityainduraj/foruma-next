@@ -2,10 +2,10 @@
 
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import styles from "../../styles/Auth.module.css";
 
-export default function ErrorPage() {
+function ErrorContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const error =
@@ -34,5 +34,19 @@ export default function ErrorPage() {
         Back to Login
       </button>
     </div>
+  );
+}
+
+export default function ErrorPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className={styles.authContainer}>
+          <h1>Loading...</h1>
+        </div>
+      }
+    >
+      <ErrorContent />
+    </Suspense>
   );
 }
