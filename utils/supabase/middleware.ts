@@ -41,11 +41,25 @@ export async function updateSession(request: NextRequest) {
         !user &&
         !request.nextUrl.pathname.startsWith('/login') &&
         !request.nextUrl.pathname.startsWith('/signup') &&
-        !request.nextUrl.pathname.startsWith('/auth')
+        !request.nextUrl.pathname.startsWith('/auth') &&
+        !request.nextUrl.pathname.startsWith('/api') &&
+        !request.nextUrl.pathname.startsWith('/_next') &&
+        !request.nextUrl.pathname.startsWith('/favicon')
     ) {
         // no user, potentially respond by redirecting the user to the login page
         const url = request.nextUrl.clone()
         url.pathname = '/login'
+        return NextResponse.redirect(url)
+    }
+
+    // If user is logged in and trying to access login/signup, redirect to home
+    if (
+        user &&
+        (request.nextUrl.pathname.startsWith('/login') ||
+            request.nextUrl.pathname.startsWith('/signup'))
+    ) {
+        const url = request.nextUrl.clone()
+        url.pathname = '/'
         return NextResponse.redirect(url)
     }
 
