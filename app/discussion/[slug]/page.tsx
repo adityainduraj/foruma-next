@@ -92,10 +92,14 @@ const DiscussionPage = () => {
             )}
             <div className={styles.content}>
               <h2>{ogData.title}</h2>
-              <p>{ogData.description.split(' ').slice(0, 30).join(' ')}{ogData.description.split(' ').length > 30 ? '...' : ''}</p>
+              <p>
+                {ogData.description.split(" ").slice(0, 30).join(" ")}
+                {ogData.description.split(" ").length > 30 ? "..." : ""}
+              </p>
             </div>
           </a>
-        </div>        <CommentSection link={link} />
+        </div>{" "}
+        <CommentSection link={link} />
       </div>
     </>
   );

@@ -1,11 +1,11 @@
 /* styles/Layout.module.css */
 .layout {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .layout main {
-    flex: 1;
-    padding-top: 64px; /* Height of navbar */
+  flex: 1;
+  padding-top: 64px; /* Height of navbar */
 }

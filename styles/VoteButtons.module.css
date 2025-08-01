@@ -1,37 +1,37 @@
 .voteContainer {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .voteButton {
-    background: transparent;
-    border: none;
-    color: #ccc;
-    cursor: pointer;
-    font-size: 1.2rem;
-    padding: 0.25rem 0.5rem;
-    transition: all 0.2s ease;
+  background: transparent;
+  border: none;
+  color: #ccc;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 0.25rem 0.5rem;
+  transition: all 0.2s ease;
 }
 
 .voteButton:hover:not(:disabled) {
-    color: #e94560;
-    transform: scale(1.1);
+  color: #e94560;
+  transform: scale(1.1);
 }
 
 .voteButton.voted {
-    color: #e94560;
+  color: #e94560;
 }
 
 .voteCount {
-    color: #ccc;
-    font-size: 0.9rem;
-    min-width: 2rem;
-    text-align: center;
+  color: #ccc;
+  font-size: 0.9rem;
+  min-width: 2rem;
+  text-align: center;
 }
 
 .voteButton:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
+  cursor: not-allowed;
+  opacity: 0.5;
 }

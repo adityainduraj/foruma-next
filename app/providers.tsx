@@ -13,31 +13,62 @@ export default function ClientProviders({
   children: React.ReactNode;
 }) {
   const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const initializeAuth = async () => {
       const supabase = createClient();
 
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-      setUser(session?.user ?? null);
+      try {
+        // Get initial session
+        const {
+          data: { session },
+          error,
+        } = await supabase.auth.getSession();
 
-      const {
-        data: { subscription },
-      } = supabase.auth.onAuthStateChange(
-        (event: AuthChangeEvent, session: Session | null) => {
-          setUser(session?.user ?? null);
+        if (error) {
+          console.error("Error getting session:", error);
         }
-      );
 
-      return () => {
-        subscription.unsubscribe();
-      };
+        setUser(session?.user ?? null);
+
+        // Listen for auth changes
+        const {
+          data: { subscription },
+        } = supabase.auth.onAuthStateChange(
+          (event: AuthChangeEvent, session: Session | null) => {
+            console.log("Auth state changed:", event, session?.user?.email);
+            setUser(session?.user ?? null);
+          }
+        );
+
+        return () => {
+          subscription.unsubscribe();
+        };
+      } catch (error) {
+        console.error("Auth initialization error:", error);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     initializeAuth();
   }, []);
+
+  if (isLoading) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        Loading...
+      </div>
+    );
+  }
 
   return (
     <AuthContext.Provider value={{ user }}>
